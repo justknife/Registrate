@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+
+
 import com.mojang.serialization.Codec;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraftforge.registries.DataPackRegistryEvent;
@@ -37,8 +39,8 @@ import com.tterrag.registrate.builders.BlockEntityBuilder;
 import com.tterrag.registrate.builders.BlockEntityBuilder.BlockEntityFactory;
 import com.tterrag.registrate.builders.Builder;
 import com.tterrag.registrate.builders.BuilderCallback;
-import com.tterrag.registrate.builders.EnchantmentBuilder;
-import com.tterrag.registrate.builders.EnchantmentBuilder.EnchantmentFactory;
+//import com.tterrag.registrate.builders.EnchantmentBuilder;
+//import com.tterrag.registrate.builders.EnchantmentBuilder.EnchantmentFactory;
 import com.tterrag.registrate.builders.EntityBuilder;
 import com.tterrag.registrate.builders.FluidBuilder;
 import com.tterrag.registrate.builders.ItemBuilder;
@@ -86,7 +88,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
+//import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -1255,21 +1257,21 @@ public abstract class AbstractRegistrate<S extends AbstractRegistrate<S>> {
 
     // Enchantment
 
-    public <T extends Enchantment> EnchantmentBuilder<T, S> enchantment(EnchantmentCategory type, EnchantmentFactory<T> factory) {
-        return enchantment(self(), type, factory);
-    }
-
-    public <T extends Enchantment> EnchantmentBuilder<T, S> enchantment(String name, EnchantmentCategory type, EnchantmentFactory<T> factory) {
-        return enchantment(self(), name, type, factory);
-    }
-
-    public <T extends Enchantment, P> EnchantmentBuilder<T, P> enchantment(P parent, EnchantmentCategory type, EnchantmentFactory<T> factory) {
-        return enchantment(parent, currentName(), type, factory);
-    }
-
-    public <T extends Enchantment, P> EnchantmentBuilder<T, P> enchantment(P parent, String name, EnchantmentCategory type, EnchantmentFactory<T> factory) {
-        return entry(name, callback -> EnchantmentBuilder.create(this, parent, name, callback, type, factory));
-    }
+//    public <T extends Enchantment> EnchantmentBuilder<T, S> enchantment(EnchantmentC type, EnchantmentFactory<T> factory) {
+//        return enchantment(self(), type, factory);
+//    }
+//
+//    public <T extends Enchantment> EnchantmentBuilder<T, S> enchantment(String name, EnchantmentCategory type, EnchantmentFactory<T> factory) {
+//        return enchantment(self(), name, type, factory);
+//    }
+//
+//    public <T extends Enchantment, P> EnchantmentBuilder<T, P> enchantment(P parent, EnchantmentCategory type, EnchantmentFactory<T> factory) {
+//        return enchantment(parent, currentName(), type, factory);
+//    }
+//
+//    public <T extends Enchantment, P> EnchantmentBuilder<T, P> enchantment(P parent, String name, EnchantmentCategory type, EnchantmentFactory<T> factory) {
+//        return entry(name, callback -> EnchantmentBuilder.create(this, parent, name, callback, type, factory));
+//    }
 
     // Creative Tab
 

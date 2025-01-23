@@ -20,7 +20,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.crafting.IIngredientSerializer;
+//import net.minecraftforge.common.crafting.IIngredientSerializer;
+import net.minecraftforge.common.crafting.ingredients.IIngredientSerializer;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
@@ -35,7 +36,7 @@ public final class DataIngredient extends Ingredient {
 
     private interface Excludes {
 
-        IIngredientSerializer<DataIngredient> getSerializer();
+        net.minecraftforge.common.crafting.ingredients.IIngredientSerializer<DataIngredient> getSerializer();
 
         void toNetwork(FriendlyByteBuf buffer);
         

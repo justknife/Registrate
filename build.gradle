@@ -9,15 +9,27 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+        maven {
+            name = "gradlePluginPortal"
+            url = "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.+', changing: true
     }
 }
 plugins {
-    id "io.freefair.lombok" version "6.1.0-m3"
-    id 'com.matthewprenger.cursegradle' version '1.4.0'
-    id 'org.ajoberstar.grgit' version '4.1.0'
+//    id('org.ajoberstar.grgit.service') version('5.3.0')//Version declared in buildSrc
+    id('net.darkhax.curseforgegradle') version('1.1.26')
+    id('com.modrinth.minotaur') version('2.8.7')
+    id('java')
+    id('eclipse')
+//    id('net.neoforged.gradle.userdev') version('7.0.154')
+//    id "io.freefair.lombok" version "6.1.0-m3"
+//    id 'com.matthewprenger.cursegradle' version '1.4.0'
+    id 'org.ajoberstar.grgit' version '5.0.0-rc.3'
+    id 'io.freefair.lombok' version '8.11'
+//    id 'org.ajoberstar.grgit' version '4.1.0'
 //    id "com.palantir.revapi" version "1.7.0"
 }
 
@@ -41,7 +53,7 @@ version = "MC${minecraft_version}-${getVersion()}"
 group = "com.tterrag.registrate"
 archivesBaseName = "Registrate"
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 /*
 revapi {
     oldGroup = project.group
@@ -56,7 +68,7 @@ minecraft {
     runs {
         client {
             taskName 'testmod_client'
-            
+
             workingDirectory project.file('run')
 
             property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP'
@@ -71,7 +83,7 @@ minecraft {
         }
         server {
             taskName 'testmod_server'
-            
+
             workingDirectory project.file('run')
 
             property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP'
@@ -86,9 +98,9 @@ minecraft {
         }
         data {
             taskName 'testmod_data'
-        
+
             workingDirectory project.file('run')
-            
+
             environment 'target', 'fmluserdevdata'
 
             property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP'
@@ -100,8 +112,8 @@ minecraft {
                     source sourceSets.main
                 }
             }
-            
-            args '--mod', 'testmod', '--all', '--output', rootProject.file('src/generated/resources/'), '--existing', rootProject.file('src/test/resources') 
+
+            args '--mod', 'testmod', '--all', '--output', rootProject.file('src/generated/resources/'), '--existing', rootProject.file('src/test/resources')
         }
     }
 }
@@ -125,17 +137,7 @@ dependencies {
     testRuntimeOnly    "org.junit.jupiter:junit-jupiter-engine:5.7.2"
 }
 
-lombok {
-    version = "1.18.20"
-    config['lombok.addJavaxGeneratedAnnotation'] = 'true'
-}
 
-delombok {
-    format = [
-        'suppressWarnings': 'skip',
-        'javaLangAsFQN': 'skip'
-    ]
-}
 
 jar {
     exclude('assets/**', 'data/**', '.cache/**') // Exclude generated assets, can't find a better way to do this :(
@@ -147,9 +149,9 @@ jar {
 }
 
 task sourceJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.delombokTask
-    exclude 'com.tterrag.registrate.test.*'
+    archiveClassifier.set('sources')
+    from sourceSets.main.allJava
+    exclude 'com/tterrag/registrate/test/**'
 }
 
 javadoc {

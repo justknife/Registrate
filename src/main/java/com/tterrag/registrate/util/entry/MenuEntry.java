@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuConstructor;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.network.NetworkHooks;
+//import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.RegistryObject;
 
 public class MenuEntry<T extends AbstractContainerMenu> extends RegistryEntry<MenuType<T>> {
@@ -37,11 +37,11 @@ public class MenuEntry<T extends AbstractContainerMenu> extends RegistryEntry<Me
         open(player, displayName, asProvider(), extraData);
     }
 
-    public void open(ServerPlayer player, Component displayName, MenuConstructor provider) {
-        NetworkHooks.openScreen(player, new SimpleMenuProvider(provider, displayName));
-    }
-
-    public void open(ServerPlayer player, Component displayName, MenuConstructor provider, Consumer<FriendlyByteBuf> extraData) {
-        NetworkHooks.openScreen(player, new SimpleMenuProvider(provider, displayName), extraData);
-    }
+//    public void open(ServerPlayer player, Component displayName, MenuConstructor provider) {
+//        NetworkHooks.openScreen(player, new SimpleMenuProvider(provider, displayName));
+//    }
+//
+//    public void open(ServerPlayer player, Component displayName, MenuConstructor provider, Consumer<FriendlyByteBuf> extraData) {
+//        NetworkHooks.openScreen(player, new SimpleMenuProvider(provider, displayName), extraData);
+//    }
 }

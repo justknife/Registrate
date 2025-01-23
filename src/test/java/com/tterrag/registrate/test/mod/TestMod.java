@@ -21,7 +21,7 @@ import com.tterrag.registrate.util.entry.RegistryEntry;
 import com.tterrag.registrate.util.nullness.NonnullType;
 
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.FrameType;
+//import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
@@ -66,8 +66,8 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantment.Rarity;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
+//import net.minecraft.world.item.enchantment.Enchantment.Rarity;
+//import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.FixedBiomeSource;
@@ -89,7 +89,7 @@ import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
+//import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -183,17 +183,17 @@ public class TestMod {
         }
     }
 
-    private static class TestEnchantment extends Enchantment {
-
-        public TestEnchantment(Rarity rarityIn, EnchantmentCategory typeIn, EquipmentSlot... slots) {
-            super(rarityIn, typeIn, slots);
-        }
-
-        @Override
-        public int getMaxLevel() {
-            return 5;
-        }
-    }
+//    private static class TestEnchantment extends Enchantment {
+//
+//        public TestEnchantment(Rarity rarityIn, EnchantmentCategory typeIn, EquipmentSlot... slots) {
+//            super(rarityIn, typeIn, slots);
+//        }
+//
+//        @Override
+//        public int getMaxLevel() {
+//            return 5;
+//        }
+//    }
 
     private static class TestCustomRegistryEntry {}
 
@@ -206,15 +206,15 @@ public class TestMod {
 
     private final AtomicBoolean sawCallback = new AtomicBoolean();
 
-    private final RegistryEntry<Item> testitem = registrate.object("testitem")
-            .item(Item::new)
-                .onRegister(item -> sawCallback.set(true))
-                .properties(p -> p.food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build()))
-                .color(() -> () -> (stack, index) -> 0xFF0000FF)
-                .tag(ItemTags.BEDS)
-                .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), new ResourceLocation("block/stone")))
-                .tab(testcreativetab.getKey(), (ctx, modifier) -> modifier.accept(ctx))
-                .register();
+//    private final RegistryEntry<Item> testitem = registrate.object("testitem")
+//            .item(Item::new)
+//                .onRegister(item -> sawCallback.set(true))
+//                .properties(p -> p.food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build()))
+//                .color(() -> () -> (stack, index) -> 0xFF0000FF)
+//                .tag(ItemTags.BEDS)
+//                .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), new ResourceLocation("block/stone")))
+//                .tab(testcreativetab.getKey(), (ctx, modifier) -> modifier.accept(ctx))
+//                .register();
 
     private final EntityEntry<TestEntity> testduplicatename = registrate.object("testitem")
             .entity(TestEntity::new, MobCategory.CREATURE)
@@ -262,20 +262,20 @@ public class TestMod {
     private final BlockEntityEntry<ChestBlockEntity> testblockbe = BlockEntityEntry.cast(testblock.getSibling(ForgeRegistries.BLOCK_ENTITY_TYPES));
 
     @SuppressWarnings("deprecation")
-    private final RegistryEntry<EntityType<TestEntity>> testentity = registrate.object("testentity")
-            .entity(TestEntity::new, MobCategory.CREATURE)
-            .attributes(Pig::createAttributes)
-            .renderer(() -> PigRenderer::new)
-            .spawnPlacement(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules)
-            .defaultSpawnEgg(0xFF0000, 0x00FF00)
-            .loot((prov, type) -> prov.add(type, LootTable.lootTable()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1))
-                            .add(LootItem.lootTableItem(Items.DIAMOND)
-                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3)))
-                                    .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0, 2)))))))
-            .tag(EntityTypeTags.RAIDERS)
-            .register();
+//    private final RegistryEntry<EntityType<TestEntity>> testentity = registrate.object("testentity")
+//            .entity(TestEntity::new, MobCategory.CREATURE)
+//            .attributes(Pig::createAttributes)
+//            .renderer(() -> PigRenderer::new)
+//            .spawnPlacement(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules)
+//            .defaultSpawnEgg(0xFF0000, 0x00FF00)
+//            .loot((prov, type) -> prov.add(type, LootTable.lootTable()
+//                    .withPool(LootPool.lootPool()
+//                            .setRolls(ConstantValue.exactly(1))
+//                            .add(LootItem.lootTableItem(Items.DIAMOND)
+//                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3)))
+//                                    .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0, 2)))))))
+//            .tag(EntityTypeTags.RAIDERS)
+//            .register();
 
     private final BlockEntityEntry<TestDummyBlockEntity> testblockentity = registrate.object("testblockentity")
             .blockEntity(TestDummyBlockEntity::new)
@@ -311,11 +311,11 @@ public class TestMod {
             .menu((type, windowId, inv) -> new ChestMenu(type, windowId, inv, new SimpleContainer(9 * 9), 9), () -> ContainerScreen::new)
             .register();
 
-    private final RegistryEntry<TestEnchantment> testenchantment = registrate.object("testenchantment")
-            .enchantment(EnchantmentCategory.ARMOR, TestEnchantment::new)
-            .rarity(Rarity.UNCOMMON)
-            .addArmorSlots()
-            .register();
+//    private final RegistryEntry<TestEnchantment> testenchantment = registrate.object("testenchantment")
+//            .enchantment(EnchantmentCategory.ARMOR, TestEnchantment::new)
+//            .rarity(Rarity.UNCOMMON)
+//            .addArmorSlots()
+//            .register();
 
 //    private final RegistryEntry<TestBiome> testbiome = registrate.object("testbiome")
 //            .biome(TestBiome::new)
@@ -382,15 +382,15 @@ public class TestMod {
 
         registrate.addRawLang("testmod.custom.lang", "Test");
         registrate.addLang("tooltip", testblock.getId(), "Egg.");
-        registrate.addLang("item", testitem.getId(), "testextra", "Magic!");
-        registrate.addDataGenerator(ProviderType.ADVANCEMENT, adv -> {
-            Advancement.Builder.advancement()
-                .addCriterion("has_egg", InventoryChangeTrigger.TriggerInstance.hasItems(Items.EGG))
-                .display(Items.EGG,
-                        adv.title(registrate.getModid(), "root", "Test Advancement"), adv.desc(registrate.getModid(), "root", "Get an egg."),
-                        new ResourceLocation("textures/gui/advancements/backgrounds/stone.png"), FrameType.TASK, true, true, false)
-                .save(adv, registrate.getModid() + ":root");
-        });
+        registrate.addLang("item", testcustom.getId(), "testextra", "Magic!");
+//        registrate.addDataGenerator(ProviderType.ADVANCEMENT, adv -> {
+//            Advancement.Builder.advancement()
+//                .addCriterion("has_egg", InventoryChangeTrigger.TriggerInstance.hasItems(Items.EGG))
+//                .display(Items.EGG,
+//                        adv.title(registrate.getModid(), "root", "Test Advancement"), adv.desc(registrate.getModid(), "root", "Get an egg."),
+//                        new ResourceLocation("textures/gui/advancements/backgrounds/stone.png"), FrameType.TASK, true, true, false)
+//                .save(adv, registrate.getModid() + ":root");
+//        });
         registrate.addDataGenerator(ProviderType.GENERIC_SERVER, provider -> provider.add(data -> {
             // generic server side provider to generate custom dimension
             // to teleport to this dimension use the following command
@@ -461,7 +461,7 @@ public class TestMod {
         }
 
         testblock.asStack();
-        testitem.is(Items.SNOWBALL);
+//        testitem.is(Items.SNOWBALL);
         testblockitem.is(Items.STONE);
         testblockbe.is(BlockEntityType.CHEST);
         // testbiome.is(Feature.BAMBOO); // should not compile

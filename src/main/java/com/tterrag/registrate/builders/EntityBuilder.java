@@ -172,25 +172,25 @@ public class EntityBuilder<T extends Entity, P> extends AbstractBuilder<EntityTy
      *             When called more than once
      */
     @SuppressWarnings("unchecked")
-    public EntityBuilder<T, P> spawnPlacement(SpawnPlacements.Type type, Heightmap.Types heightmap, SpawnPredicate<T> predicate) {
-        if (spawnConfigured) {
-            throw new IllegalStateException("Cannot configure spawn placement more than once");
-        }
-        spawnConfigured = true;
-        this.onRegister(t -> {
-            /* TODO is there any way to do this now?
-            try {
-                if (!(t.create(null) instanceof MobEntity)) {
-                    throw new IllegalArgumentException("Cannot register spawn placement for entity " + t.getRegistryName() + " as it does not extend MobEntity");
-                }
-            } catch (Exception e) {
-                throw new RuntimeException("Failed to type check entity " + t.getRegistryName() + " when registering spawn placement", e);
-            }
-            */
-            SpawnPlacements.register((EntityType<Mob>) t, type, heightmap, (SpawnPredicate<Mob>) predicate);
-        });
-        return this;
-    }
+//    public EntityBuilder<T, P> spawnPlacement(SpawnPlacements.Type type, Heightmap.Types heightmap, SpawnPredicate<T> predicate) {
+//        if (spawnConfigured) {
+//            throw new IllegalStateException("Cannot configure spawn placement more than once");
+//        }
+//        spawnConfigured = true;
+//        this.onRegister(t -> {
+//            /* TODO is there any way to do this now?
+//            try {
+//                if (!(t.create(null) instanceof MobEntity)) {
+//                    throw new IllegalArgumentException("Cannot register spawn placement for entity " + t.getRegistryName() + " as it does not extend MobEntity");
+//                }
+//            } catch (Exception e) {
+//                throw new RuntimeException("Failed to type check entity " + t.getRegistryName() + " when registering spawn placement", e);
+//            }
+//            */
+//            SpawnPlacements.register((EntityType<Mob>) t, type, heightmap, (SpawnPredicate<Mob>) predicate);
+//        });
+//        return this;
+//    }
 
     /**
      * Create a spawn egg item for this entity using the given colors, not allowing for any extra configuration.
