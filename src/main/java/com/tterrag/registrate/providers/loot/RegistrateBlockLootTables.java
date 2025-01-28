@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Generated;
 
+// Now class BlockLootSubProvider has protected and can't call on it. need rework
 @RequiredArgsConstructor
 public class RegistrateBlockLootTables extends VanillaBlockLoot implements RegistrateLootTables {
     private final AbstractRegistrate<?> parent;

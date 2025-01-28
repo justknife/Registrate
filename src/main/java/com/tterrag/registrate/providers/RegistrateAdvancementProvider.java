@@ -46,11 +46,11 @@ public class RegistrateAdvancementProvider implements RegistrateProvider, Consum
     }
 
     public MutableComponent title(String category, String name, String title) {
-        return owner.addLang("advancements", new ResourceLocation(category, name), "title", title);
+        return owner.addLang("advancements", ResourceLocation.fromNamespaceAndPath(category, name), "title", title);
     }
 
     public MutableComponent desc(String category, String name, String desc) {
-        return owner.addLang("advancements", new ResourceLocation(category, name), "description", desc);
+        return owner.addLang("advancements", ResourceLocation.fromNamespaceAndPath(category, name), "description", desc);
     }
 
     private @Nullable CachedOutput cache;
@@ -81,6 +81,7 @@ public class RegistrateAdvancementProvider implements RegistrateProvider, Consum
         }
         Objects.requireNonNull(t, "Cannot accept a null advancement");
         Path path = this.packOutput.getOutputFolder();
+//        Need new call method deprecated and removed
         if (!seenAdvancements.add(t.getId())) {
             throw new IllegalStateException("Duplicate advancement " + t.getId());
         } else {

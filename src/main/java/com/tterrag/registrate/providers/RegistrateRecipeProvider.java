@@ -20,6 +20,7 @@ import net.minecraft.advancements.critereon.EnterBlockTrigger;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
@@ -42,8 +43,8 @@ public class RegistrateRecipeProvider extends RecipeProvider implements Registra
 
     private final AbstractRegistrate<?> owner;
 
-    public RegistrateRecipeProvider(AbstractRegistrate<?> owner, PackOutput output) {
-        super(output);
+    public RegistrateRecipeProvider(AbstractRegistrate<?> owner, PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+        super(output, registries); // Передаём оба параметра в базовый конструктор
         this.owner = owner;
     }
 
@@ -64,14 +65,13 @@ public class RegistrateRecipeProvider extends RecipeProvider implements Registra
     }
 
     @Override
-    protected void buildRecipes(Consumer<RecipeOutput> consumer) {
-        this.callback = consumer;
+    protected void buildRecipes(RecipeOutput consumer) {
         owner.genData(ProviderType.RECIPE, this);
         this.callback = null;
     }
 
     public ResourceLocation safeId(ResourceLocation id) {
-        return new ResourceLocation(owner.getModid(), safeName(id));
+        return ResourceLocation.fromNamespaceAndPath(owner.getModid(), safeName(id));
     }
 
     public ResourceLocation safeId(DataIngredient source) {

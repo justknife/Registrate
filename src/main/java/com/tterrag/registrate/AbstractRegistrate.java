@@ -223,6 +223,7 @@ public abstract class AbstractRegistrate<S extends AbstractRegistrate<S>> {
      * 
      * @return An {@link IEventBus} to use
      */
+
     public IEventBus getModEventBus() {
         return FMLJavaModLoadingContext.get().getModEventBus();
     }
@@ -883,7 +884,7 @@ public abstract class AbstractRegistrate<S extends AbstractRegistrate<S>> {
      * @return A {@link RegistryEntry} that will hold the created entry after registration is complete
      */
     protected <R, T extends R> RegistryEntry<T> accept(String name, ResourceKey<? extends Registry<R>> type, Builder<R, T, ?, ?> builder, NonNullSupplier<? extends T> creator, NonNullFunction<RegistryObject<T>, ? extends RegistryEntry<T>> entryFactory) {
-        Registration<R, T> reg = new Registration<>(new ResourceLocation(modid, name), type, creator, entryFactory);
+        Registration<R, T> reg = new Registration<>(ResourceLocation.fromNamespaceAndPath(modid, name), type, creator, entryFactory);
         log.debug(DebugMarkers.REGISTER, "Captured registration for entry {}:{} of type {}", getModid(), name, type.location());
         registerCallbacks.removeAll(Pair.of(name, type)).forEach(callback -> {
             @SuppressWarnings({ "unchecked", "null" })
@@ -911,7 +912,7 @@ public abstract class AbstractRegistrate<S extends AbstractRegistrate<S>> {
      * @return A {@link ResourceKey resource key} referencing the to-be-created registry.
      */
     public <R> ResourceKey<Registry<R>> makeRegistry(String name, Supplier<RegistryBuilder<R>> builder) {
-        final ResourceKey<Registry<R>> registryId = ResourceKey.createRegistryKey(new ResourceLocation(getModid(), name));
+        final ResourceKey<Registry<R>> registryId = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(getModid(), name));
         OneTimeEventReceiver.addModListener(this, NewRegistryEvent.class, e -> e.create(builder.get().setName(registryId.location())));
         return registryId;
     }
@@ -949,7 +950,7 @@ public abstract class AbstractRegistrate<S extends AbstractRegistrate<S>> {
      * @see #makeDatapackRegistry(String, Codec)
      */
     public <R> ResourceKey<Registry<R>> makeDatapackRegistry(String name, Codec<R> codec, @Nullable Codec<R> networkCodec) {
-        final ResourceKey<Registry<R>> registryId = ResourceKey.createRegistryKey(new ResourceLocation(getModid(), name));
+        final ResourceKey<Registry<R>> registryId = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(getModid(), name));
         OneTimeEventReceiver.addModListener(this, DataPackRegistryEvent.NewRegistry.class, event -> event.dataPackRegistry(registryId, codec, networkCodec));
         return registryId;
     }
@@ -1183,15 +1184,15 @@ public abstract class AbstractRegistrate<S extends AbstractRegistrate<S>> {
     }
 
     public <P> FluidBuilder<ForgeFlowingFluid.Flowing, P> fluid(P parent, String name) {
-        return fluid(parent, name, new ResourceLocation(getModid(), "block/" + currentName() + "_still"), new ResourceLocation(getModid(), "block/" + currentName() + "_flow"));
+        return fluid(parent, name, ResourceLocation.fromNamespaceAndPath(getModid(), "block/" + currentName() + "_still"), ResourceLocation.fromNamespaceAndPath(getModid(), "block/" + currentName() + "_flow"));
     }
 
     public <P> FluidBuilder<ForgeFlowingFluid.Flowing, P> fluid(P parent, String name, FluidBuilder.FluidTypeFactory typeFactory) {
-        return fluid(parent, name, new ResourceLocation(getModid(), "block/" + currentName() + "_still"), new ResourceLocation(getModid(), "block/" + currentName() + "_flow"), typeFactory);
+        return fluid(parent, name, ResourceLocation.fromNamespaceAndPath(getModid(), "block/" + currentName() + "_still"), ResourceLocation.fromNamespaceAndPath(getModid(), "block/" + currentName() + "_flow"), typeFactory);
     }
 
     public <P> FluidBuilder<ForgeFlowingFluid.Flowing, P> fluid(P parent, String name, NonNullSupplier<FluidType> fluidType) {
-        return fluid(parent, name, new ResourceLocation(getModid(), "block/" + currentName() + "_still"), new ResourceLocation(getModid(), "block/" + currentName() + "_flow"), fluidType);
+        return fluid(parent, name, ResourceLocation.fromNamespaceAndPath(getModid(), "block/" + currentName() + "_still"), ResourceLocation.fromNamespaceAndPath(getModid(), "block/" + currentName() + "_flow"), fluidType);
     }
 
     public <P> FluidBuilder<ForgeFlowingFluid.Flowing, P> fluid(P parent, String name, ResourceLocation stillTexture, ResourceLocation flowingTexture) {
@@ -1304,7 +1305,7 @@ public abstract class AbstractRegistrate<S extends AbstractRegistrate<S>> {
     }
 
     public <P> NoConfigBuilder<CreativeModeTab, CreativeModeTab, P> defaultCreativeTab(P parent, String name, Consumer<CreativeModeTab.Builder> config) {
-        this.defaultCreativeModeTab = ResourceKey.create(Registries.CREATIVE_MODE_TAB, new ResourceLocation(this.modid, name));
+        this.defaultCreativeModeTab = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(this.modid, name));
         return this.generic(parent, name, Registries.CREATIVE_MODE_TAB, () -> {
             var builder = CreativeModeTab.builder()
                     .icon(() -> getAll(Registries.ITEM).stream().findFirst().map(ItemEntry::cast).map(ItemEntry::asStack).orElse(new ItemStack(Items.AIR)))
